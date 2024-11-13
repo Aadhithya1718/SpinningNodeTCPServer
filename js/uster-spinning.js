@@ -797,6 +797,8 @@ router.post("/usteriosmachinewise", function (req, res, next) {
 
 // Reallisation
 router.post("/UsterReallisation", function (req, res, next) {
+  console.log("Request received on /UsterReallisation");
+
   let json = req.body;
   let db = "QuantumExpert2_0";
   let fromdate = json.fromdate;
@@ -994,19 +996,19 @@ router.post("/thirtydaysProduction", function (req, res, next) {
 });
 
 router.post("/usterthirtydaysProduction", function (req, res, next) {
-  let json = req.body;
-  let fromdate = json.fromdate;
+  // let json = req.body;
+  // let fromdate = json.fromdate;
   console.log("Request received on /usterThirtydaysProduction");
-  let promise1 = requestFetchusterwebservice(null, {
-    SPName: "USP_GetThirtydaysProduction",
-    DB: "USTER",
-    JSONData: `{ "ReqType": "SELECT", "SubType": "SUMMARY_QTY_TO_PRODUCTION_REALLISATION", "Fromdate": "${fromdate}" }`,
-  });
+  // let promise1 = requestFetchusterwebservice(null, {
+  //   SPName: "USP_GetThirtydaysProduction",
+  //   DB: "USTER",
+  //   JSONData: `{ "ReqType": "SELECT", "SubType": "SUMMARY_QTY_TO_PRODUCTION_REALLISATION", "Fromdate": "${fromdate}" }`,
+  // });
 
-  return Promise.all([promise1]).then((ress) => {
-    console.log(ress);
-    return res.json(ress);
-  });
+  // return Promise.all([promise1]).then((ress) => {
+  //   console.log(ress);
+  //   return res.json(ress);
+  // });
 });
 
 function getTarget(mc_target, date, shiftNo, mc_no) {
