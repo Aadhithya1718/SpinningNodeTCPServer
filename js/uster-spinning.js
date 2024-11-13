@@ -977,15 +977,10 @@ router.post("/UsterReallisation", function (req, res, next) {
 });
 
 // ThirtydaysProduction for Report
-router.post("/usterThirtydaysProduction", function (req, res, next) {
+router.post("/thirtydaysProduction", function (req, res, next) {
   let json = req.body;
   let fromdate = json.fromdate;
 
-  // let promise1 = fetcher.requestFetch3(null, {
-  //   query: `SELECT MAX(S.ID) AS ID, REPLACE(REPLACE(S.MachineName, 'AC-0', ''), 'AC-', '') AS MachineNo, FORMAT(S.ShiftStartTime,'dd MMM yyyy') AS ProdDate, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(S.ArticleName, '.', ''), '-', ' '), '16s SL', '16SL'),'20s SL', '20SL' ),'21s SL', '21SL'),'32s SL', '32SL' ),'40s SL', '40SL' ) AS YarnCounts,S.ShiftNumber AS ShiftNo, SUM(round(S.YarnWeight * 0.99, 0)) AS ShiftProdQty, S.ArticleYarnCount_Count, S.ArticleYarnCount_Count * 0.5909 AS YarnCount_Calcr, S.YarnCountTotal INTO #temp1 FROM [Shift].V_Group_AllProductionData AS S WHERE S.[ShiftStartTime] >= CONVERT(DATETIMEOFFSET, '${fromdate}', 121) AND S.[ShiftStartTime] <= CONVERT(DATETIMEOFFSET, '${todate}', 121) AND S.YarnWeight > 5 AND S.ArticleName LIKE '%s%' GROUP BY S.MachineName, S.ShiftStartTime, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(S.ArticleName, '.', ''), '-', ' '), '16s SL', '16SL'),'20s SL', '20SL' ),'21s SL', '21SL'),'32s SL', '32SL' ),'40s SL', '40SL' ), S.ShiftNumber, S.ArticleYarnCount_Count, S.ArticleYarnCount_Count * 0.5909, S.YarnCountTotal     ORDER BY S.MachineName select * from #temp1 where YarnCounts != 'INIT   12'`,
-  //   DB: db,
-  //   timeout: 50000,
-  // });
   let promise1 = requestFetchusterwebservice(null, {
     SPName: "USP_GetThirtydaysProduction",
     DB: "USTER",
