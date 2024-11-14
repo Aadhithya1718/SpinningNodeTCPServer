@@ -93,10 +93,15 @@ router.post("/ustersummary", function (req, res, next) {
   });
 
   let ToDate = json.todate;
-  let promise2 = requestFetch3(null, {
+  // let promise2 = requestFetch3(null, {
+  //   SPName: "USP_tblMSpinningProduction",
+  //   JSONData: { ReqType: "USTER_REPORT_SELECT", fromdate, ToDate },
+  //   DB: "ALCSpinning_Live",
+  // });
+  let promise2 = requestFetchusterwebservice(null, {
     SPName: "USP_tblMSpinningProduction",
-    JSONData: { ReqType: "USTER_REPORT_SELECT", fromdate, ToDate },
-    DB: "ALCSpinning_Live",
+    DB: "ALCSPGERP",
+    JSONData: `{ "ReqType": "USTER_REPORT_SELECT","fromdate": "${fromdate}", "ToDate": "${todate}"}`,
   });
   return Promise.all([promise1, promise2]).then((ress) => {
     fromdate = global.moment(fromdate);
@@ -174,11 +179,17 @@ router.post("/uster", function (req, res, next) {
     todate = json.todate;
   }
 
-  let promises1 = requestFetch3(null, {
+  // let promises1 = requestFetch3(null, {
+  //   SPName: "USP_YarnTarget",
+  //   // JSONData: { ReqType: "SELECT", Division_id, fromdate, todate },
+  //   JSONData: { ReqType: "SELECT_FOR_USTER_REPORT" },
+  //   DB: "ALCSpinning_Live",
+  // });
+
+  let promises1 = requestFetchusterwebservice(null, {
     SPName: "USP_YarnTarget",
-    // JSONData: { ReqType: "SELECT", Division_id, fromdate, todate },
-    JSONData: { ReqType: "SELECT_FOR_USTER_REPORT" },
-    DB: "ALCSpinning_Live",
+    DB: "ALCSPGERP",
+    JSONData: `{ "ReqType": "SELECT_FOR_USTER_REPORT"}`,
   });
 
   // let promise2 = fetcher.requestFetch3(null, {
@@ -192,11 +203,17 @@ router.post("/uster", function (req, res, next) {
     JSONData: `{ "ReqType": "SELECT_SHIFT_PRODUCTION_REPORT",  "fromdate": "${fromdate}", "todate": "${todate}" }`,
   });
 
-  let ToDate = json.todate;
-  let promise3 = requestFetch3(null, {
+  // let ToDate = json.todate;
+  // let promise3 = requestFetch3(null, {
+  //   SPName: "USP_tblMSpinningProduction",
+  //   JSONData: { ReqType: "USTER_REPORT_SELECT", fromdate, ToDate },
+  //   DB: "ALCSpinning_Live",
+  // });
+
+  let promise3 = requestFetchusterwebservice(null, {
     SPName: "USP_tblMSpinningProduction",
-    JSONData: { ReqType: "USTER_REPORT_SELECT", fromdate, ToDate },
-    DB: "ALCSpinning_Live",
+    DB: "ALCSPGERP",
+    JSONData: `{ "ReqType": "USTER_REPORT_SELECT", "fromdate": "${fromdate}", "ToDate": "${todate}"}`,
   });
 
   return Promise.all([promises1, promise2, promise3]).then((ress) => {
