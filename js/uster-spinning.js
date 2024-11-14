@@ -1007,7 +1007,7 @@ router.post("/usterthirtydaysProduction", function (req, res, next) {
 
   return Promise.all([promise1]).then((ress) => {
     console.log("hi");
-    return res.json("hi");
+    return res.json("hiiii");
   });
 });
 
