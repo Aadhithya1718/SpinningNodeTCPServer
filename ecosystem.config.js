@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "ALCSpinningNodeServer",
       script: "index.js",
-      watch: false,
+      watch: true,
       exp_backoff_restart_delay: 300,
       ignore_watch: ["node_modules", "err.log", "access.log", "temp"],
       watch_options: {
