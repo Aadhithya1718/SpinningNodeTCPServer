@@ -859,7 +859,7 @@ router.post("/UsterReallisation", function (req, res, next) {
   let promises2 = requestFetchusterwebservice(null, {
     SPName: "USP_GTQtyToProductionApp",
     DB: "ALCSPGERP",
-    JSONData: `{ ""fromdate": "${fromdate}", "todate": "${todate}"}`,
+    JSONData: `{ "fromdate": "${fromdate}", "todate": "${todate}"}`,
   });
 
 
