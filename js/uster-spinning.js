@@ -974,13 +974,13 @@ router.post("/UsterReallisation", function (req, res, next) {
     }
 
     console.log(jsondata);
-    return res.json("hi");
+    return res.json(jsondata);
   });
 });
 
 // ThirtydaysProduction for Report
-router.post("/thirtydaysProduction", function (req, res, next) {
-  console.log("Request received on /ThirtydaysProduction");
+router.post("/usterthirtydaysProduction", function (req, res, next) {
+  // console.log("Request received on /ThirtydaysProduction");
   let json = req.body;
   let fromdate = json.fromdate;
 
@@ -992,22 +992,6 @@ router.post("/thirtydaysProduction", function (req, res, next) {
 
   return Promise.all([promise1]).then((ress) => {
     return res.json(ress);
-  });
-});
-
-router.post("/usterthirtydaysProduction", function (req, res, next) {
-  let json = req.body;
-  let fromdate = json.fromdate;
-  console.log("Request received on /usterThirtydaysProduction");
-  let promise1 = requestFetchusterwebservice(null, {
-    SPName: "USP_GetThirtydaysProduction",
-    DB: "USTER",
-    JSONData: `{ "ReqType": "SELECT", "SubType": "SUMMARY_QTY_TO_PRODUCTION_REALLISATION", "Fromdate": "${fromdate}" }`,
-  });
-
-  return Promise.all([promise1]).then((ress) => {
-    console.log("hi");
-    return res.json("hiiii");
   });
 });
 
