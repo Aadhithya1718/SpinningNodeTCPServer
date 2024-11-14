@@ -5,7 +5,7 @@ module.exports = {
       script: "index.js",
       watch: false,
       exp_backoff_restart_delay: 300,
-      ignore_watch: ["node_modules", "err.log", "access.log", "temp"],
+      ignore_watch: ["node_modules",  "temp"],
       watch_options: {
         followSymlinks: false,
       },
@@ -20,3 +20,4 @@ module.exports = {
     },
   ],
 };
+// "err.log", "access.log",
