@@ -450,7 +450,7 @@ router.post("/ustersummaryios", function (req, res, next) {
   let promise3 = requestFetchusterwebservice(null, {
     SPName: "USP_GTQtyToProductionApp",
     DB: "ALCSPGERP",
-    JSONData: `{ "ReqType": "USTER_IOS_MECHINEWISE_SELECT","Fromdate": "${Fromdate}", "Todate": "${Todate}"}`,
+    JSONData: `{"Fromdate": "${Fromdate}", "Todate": "${Todate}"}`,
   });
   let fromdate = json.fromdate;
   let todate = json.todate;
