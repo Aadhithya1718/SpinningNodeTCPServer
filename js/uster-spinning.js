@@ -261,6 +261,8 @@ router.post("/uster", function (req, res, next) {
             finalYarnCounts = mprod.YarnCounts.replace("CH", "Cheese");
           } else if (mprod.YarnCounts.includes("CO")) {
             finalYarnCounts = mprod.YarnCounts.replace("CO", "Cone");
+          }else{
+            finalYarnCounts = mprod.YarnCounts
           }
         }
 
