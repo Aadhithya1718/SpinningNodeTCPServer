@@ -483,7 +483,16 @@ router.post("/ustersummaryios", function (req, res, next) {
     let mcTarget = ress[0];
     let spinningprod = ress[3];
     let uspterdata = ress[1];
-    let uspterprod = uspterdata.filter((uspterdata, index, self) => index === self.findIndex((t) => t.InwardDate === uspterdata.InwardDate && t.MachineNo === uspterdata.MachineNo));
+    // let uspterprod = uspterdata.filter((uspterdata, index, self) => index === self.findIndex((t) => t.InwardDate === uspterdata.InwardDate && t.MachineNo === uspterdata.MachineNo));
+    let seen = new Set();
+    let uspterprod = uspterdata.filter(item => {
+      let identifier = `${item.InwardDate}-${item.MachineNo}`;
+      if (seen.has(identifier)) {
+          return false;
+      }
+      seen.add(identifier);
+      return true;
+  });
     let spinningMap = new Map();
     let Spinningproddata = [];
     let proddata = [];
@@ -718,21 +727,23 @@ router.post("/usteriosmachinewise", function (req, res, next) {
       });
 
       matcheddata.forEach((item, v) => {
-        Spinningproddata[v].Qty = 0;
-        if (!Spinningproddata[v].S1) {
-          Spinningproddata[v].S1 = item.S1;
-          Spinningproddata[v].Shiftno1 = 1;
+        if(Spinningproddata[v]){
+          Spinningproddata[v].Qty = 0;
+          if (!Spinningproddata[v].S1) {
+            Spinningproddata[v].S1 = item.S1;
+            Spinningproddata[v].Shiftno1 = 1;
+          }
+          if (!Spinningproddata[v].S2) {
+            Spinningproddata[v].S2 = item.S2;
+            Spinningproddata[v].Shiftno2 = 2;
+          }
+          if (!Spinningproddata[v].S3) {
+            Spinningproddata[v].S3 = item.S3;
+            Spinningproddata[v].Shiftno3 = 3;
+          }
+          Spinningproddata[v].Qty = Spinningproddata[v].S1 + Spinningproddata[v].S2 + Spinningproddata[v].S3;
+          proddata.push(Spinningproddata[v]);
         }
-        if (!Spinningproddata[v].S2) {
-          Spinningproddata[v].S2 = item.S2;
-          Spinningproddata[v].Shiftno2 = 2;
-        }
-        if (!Spinningproddata[v].S3) {
-          Spinningproddata[v].S3 = item.S3;
-          Spinningproddata[v].Shiftno3 = 3;
-        }
-        Spinningproddata[v].Qty = Spinningproddata[v].S1 + Spinningproddata[v].S2 + Spinningproddata[v].S3;
-        proddata.push(Spinningproddata[v]);
       });
     } else {
       Spinningproddata.forEach((item) => {
