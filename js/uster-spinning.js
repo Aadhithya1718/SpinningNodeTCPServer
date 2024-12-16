@@ -101,7 +101,7 @@ router.post("/ustersummary", function (req, res, next) {
   let promise2 = requestFetchusterwebservice(null, {
     SPName: "USP_tblMSpinningProduction",
     DB: "ALCSPGERP",
-    JSONData: `{ "ReqType": "USTER_REPORT_SELECT","fromdate": "${fromdate}", "ToDate": "${todate}"}`,
+    JSONData: `{ "ReqType": "USTER_REPORT_SELECT","fromdate": "${fromdate}", "ToDate": "${fromdate}"}`,
   });
   return Promise.all([promise1, promise2]).then((ress) => {
     fromdate = global.moment(fromdate);
@@ -152,7 +152,7 @@ router.post("/ustersummary", function (req, res, next) {
     }, []);
     let finaldata = [];
     aggregatedData.forEach((item) => {
-      let replaced_count = item.Counts.replace("16s SL", "16SL").replace("20s SL", "20SL").replace("21s SL", "21SL").replace("32s SL", "32SL").replace("40s SL", "40SL").replace("KC", "Carded Compact").replace("KL", "Carded Lycra").replace("CL", "Combed Lycra").replace("CC", "Combed Compact").replace("K", "Carded").replace("CH", "Cheese").replace("CO", "Cone").replace("C ", "Combed ");
+      let replaced_count = item.Counts.replace("50s", "50S").replace("16s SL", "16SL").replace("20s SL", "20SL").replace("21s SL", "21SL").replace("32s SL", "32SL").replace("40s SL", "40SL").replace("KC", "Carded Compact").replace("KL", "Carded Lycra").replace("CL", "Combed Lycra").replace("CC", "Combed Compact").replace("K", "Carded").replace("CH", "Cheese").replace("CO", "Cone").replace("C ", "Combed ");
       finaldata.push({ Counts: replaced_count, ShiftProdQty: item.ShiftProdQty });
     });
 
@@ -213,7 +213,7 @@ router.post("/uster", function (req, res, next) {
   let promise3 = requestFetchusterwebservice(null, {
     SPName: "USP_tblMSpinningProduction",
     DB: "ALCSPGERP",
-    JSONData: `{ "ReqType": "USTER_REPORT_SELECT", "fromdate": "${fromdate}", "ToDate": "${todate}"}`,
+    JSONData: `{ "ReqType": "USTER_REPORT_SELECT", "fromdate": "${fromdate}", "ToDate": "${fromdate}"}`,
   });
 
   return Promise.all([promises1, promise2, promise3]).then((ress) => {
