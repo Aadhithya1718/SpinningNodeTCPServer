@@ -278,7 +278,7 @@ router.post("/uster", function (req, res, next) {
           YarnCounts = finalYarnCounts.replace("K", "Carded");
         } else if (finalYarnCounts.includes("C")) {
           YarnCounts = finalYarnCounts.replace("C", "Combed");
-        }
+        }        
 
         let dd = { ID: parseInt(mprod["ID"]), date: mprod["ProdDate"], shift: mprod["ShiftNo"], machineno: mprod["MachineNo"], prodqty: roundoff(mprod["ShiftProdQty"], 2), YarnCounts: YarnCounts, YarnType: mprod["YarnType"], Cheese: mprod["Cheese"] };
 
@@ -378,9 +378,17 @@ router.post("/uster", function (req, res, next) {
           const shiftStartTime = existingItem[`Shift${item.shift}ID`];
           const comparisonDate = item.ID;
           if (shiftStartTime > comparisonDate) {
-            existingItem[`Shift${item.shift}_target`] = existingItem[`Shift${item.shift}_target`];
-            existingItem[`Shift${item.shift}_YarnCountsTypeCheese`] = existingItem[`Shift${item.shift}_YarnCountsTypeCheese`] + ` / ${item.YarnCounts}`;
-            existingItem[`Shift${item.shift}_eff`] = roundoff((existingItem[`Shift${item.shift}_prodqty`] / existingItem[`Shift${item.shift}_target`]) * 100, 2);
+            if(parseInt(item.machineno) === 8){
+              existingItem[`Shift${item.shift}_target`] = item.target > 0 ? item.target : 0;
+              existingItem[`Shift${item.shift}_YarnCountsTypeCheese`] = `${item.YarnCounts}` + "/ " + existingItem[`Shift${item.shift}_YarnCountsTypeCheese`];
+              existingItem[`Shift${item.shift}_eff`] = roundoff((existingItem[`Shift${item.shift}_prodqty`] / item.target) * 100, 2);
+  
+            }else{
+
+              existingItem[`Shift${item.shift}_target`] = existingItem[`Shift${item.shift}_target`];
+              existingItem[`Shift${item.shift}_YarnCountsTypeCheese`] = existingItem[`Shift${item.shift}_YarnCountsTypeCheese`] + ` / ${item.YarnCounts}`;
+              existingItem[`Shift${item.shift}_eff`] = roundoff((existingItem[`Shift${item.shift}_prodqty`] / existingItem[`Shift${item.shift}_target`]) * 100, 2);
+            }
           } else {
             existingItem[`Shift${item.shift}_target`] = item.target > 0 ? item.target : 0;
             existingItem[`Shift${item.shift}_YarnCountsTypeCheese`] = `${item.YarnCounts}` + "/" + existingItem[`Shift${item.shift}_YarnCountsTypeCheese`];
