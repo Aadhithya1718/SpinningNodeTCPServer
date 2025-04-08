@@ -138,7 +138,7 @@ router.post("/ustersummary", function (req, res, next) {
       const { YarnCounts, ShiftProdQty } = item;
       let found = false;
       for (let i = 0; i < accumulator.length; i++) {
-        if (accumulator[i].Counts === YarnCounts) {
+        if (accumulator[i].Counts.toUpperCase() === YarnCounts.toUpperCase()) {
           accumulator[i].ShiftProdQty += ShiftProdQty;
           found = true;
           break;
@@ -152,7 +152,8 @@ router.post("/ustersummary", function (req, res, next) {
     }, []);
     let finaldata = [];
     aggregatedData.forEach((item) => {
-      let replaced_count = item.Counts.replace("50s", "50S").replace("16s SL", "16SL").replace("20s SL", "20SL").replace("21s SL", "21SL").replace("32s SL", "32SL").replace("40s SL", "40SL").replace("KC", "Carded Compact").replace("KL", "Carded Lycra").replace("CL", "Combed Lycra").replace("CC", "Combed Compact").replace("K", "Carded").replace("CH", "Cheese").replace("CO", "Cone").replace("C ", "Combed ");
+      let count = item.Counts.toUpperCase();
+      let replaced_count = count.replace("16s SL", "16SL").replace("20s SL", "20SL").replace("21s SL", "21SL").replace("32s SL", "32SL").replace("40s SL", "40SL").replace("KC", "Carded Compact").replace("KL", "Carded Lycra").replace("CL", "Combed Lycra").replace("CC", "Combed Compact").replace("K", "Carded").replace("CH", "Cheese").replace("CO", "Cone").replace("C ", "Combed ");
       finaldata.push({ Counts: replaced_count, ShiftProdQty: item.ShiftProdQty });
     });
 
@@ -256,13 +257,14 @@ router.post("/uster", function (req, res, next) {
       mcProduction.forEach((mprod) => {
         let YarnCounts;
         let finalYarnCounts;
-        if (mprod.YarnCounts) {
-          if (mprod.YarnCounts.includes("CH")) {
-            finalYarnCounts = mprod.YarnCounts.replace("CH", "Cheese");
-          } else if (mprod.YarnCounts.includes("CO")) {
-            finalYarnCounts = mprod.YarnCounts.replace("CO", "Cone");
+        let yarncount = mprod.YarnCounts.toUpperCase();
+        if (yarncount) {
+          if (yarncount.includes("CH")) {
+            finalYarnCounts = yarncount.replace("CH", "Cheese");
+          } else if (yarncount.includes("CO")) {
+            finalYarnCounts = yarncount.replace("CO", "Cone");
           }else{
-            finalYarnCounts = mprod.YarnCounts
+            finalYarnCounts = yarncount
           }
         }
 
@@ -279,7 +281,6 @@ router.post("/uster", function (req, res, next) {
         } else if (finalYarnCounts.includes("C")) {
           YarnCounts = finalYarnCounts.replace("C", "Combed");
         }        
-
         let dd = { ID: parseInt(mprod["ID"]), date: mprod["ProdDate"], shift: mprod["ShiftNo"], machineno: mprod["MachineNo"], prodqty: roundoff(mprod["ShiftProdQty"], 2), YarnCounts: YarnCounts, YarnType: mprod["YarnType"], Cheese: mprod["Cheese"] };
 
         var formatedYarnCounts = mprod.YarnCounts.replace(" CO", "");
