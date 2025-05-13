@@ -104,8 +104,8 @@ router.post("/ustersummary", function (req, res, next) {
     JSONData: `{ "ReqType": "USTER_REPORT_SELECT","fromdate": "${fromdate}", "ToDate": "${fromdate}"}`,
   });
   return Promise.all([promise1, promise2]).then((ress) => {
-    fromdate = global.moment(fromdate);
-    todate = global.moment(todate);
+    fromdate = global.moment(fromdate, 'DD MMM YYYY');
+    todate = global.moment(todate, 'DD MMM YYYY');
 
     let spinningprod = ress[1];
     let uspterprod = ress[0];
@@ -218,8 +218,8 @@ router.post("/uster", function (req, res, next) {
   });
 
   return Promise.all([promises1, promise2, promise3]).then((ress) => {
-    fromdate = global.moment(fromdate);
-    todate = global.moment(todate);
+    fromdate = global.moment(fromdate, 'DD MMM YYYY');
+    todate = global.moment(todate, 'DD MMM YYYY');
 
     let mcTarget = ress[0];
     let spinningprod = ress[2];
@@ -477,8 +477,8 @@ router.post("/ustersummaryios", function (req, res, next) {
   });
 
   return Promise.all([promises1, promise2, promise3, promise4]).then((ress) => {
-    Fromdate = global.moment(Fromdate);
-    Todate = global.moment(Todate);
+    Fromdate = global.moment(Fromdate, 'DD MMM YYYY');
+    Todate = global.moment(Todate, 'DD MMM YYYY');
 
     const currentdata = moment();
     const todate1 = moment(Todate);
@@ -712,8 +712,8 @@ router.post("/usteriosmachinewise", function (req, res, next) {
   });
 
   return Promise.all([promises1, promise2, promise3]).then((ress) => {
-    Fromdate = global.moment(Fromdate);
-    Todate = global.moment(Todate);
+    Fromdate = global.moment(Fromdate, 'DD MMM YYYY');
+    Todate = global.moment(Todate, 'DD MMM YYYY');
 
     let mcTarget = ress[0];
     // let mcProduction = ress[2].length > 0 ? ress[2] : ress[1];
@@ -897,8 +897,8 @@ router.post("/UsterReallisation", function (req, res, next) {
   });
 
   return Promise.all([promise1, promises2, promise3]).then((ress) => {
-    fromdate = global.moment(fromdate);
-    todate = global.moment(todate);
+    fromdate = global.moment(fromdate, 'DD MMM YYYY');
+    todate = global.moment(todate, 'DD MMM YYYY');
 
     let spinningprod = ress[2];
     let uspterprod = ress[0];
